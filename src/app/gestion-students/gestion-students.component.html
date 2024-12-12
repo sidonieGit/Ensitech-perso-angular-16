@@ -1,0 +1,180 @@
+<section class="d-flex">
+	<!-- SIDEBAR -->
+	<app-sidebar></app-sidebar>
+	<!-- MAIN -->
+	<main class="flex-grow-1">
+		<app-topbar></app-topbar>
+
+		<!-- Barre de recherche et bouton Ajouter -->
+		<div class="d-flex justify-content-between align-items-center flex-wrap mt-4 p-4">
+			<form class="col-6 col-md-9" style="height: 44px;">
+				<div class="input-group">
+					<span class="input-group-text" id="basic-addon1">
+						<i class="hgi-stroke hgi-search-01"></i>
+					</span>
+					<input type="search" placeholder="Rechercher un étudiant..." class="form-control" />
+				</div>
+			</form>
+			<button type="button" class="primary-btn border-0" data-bs-toggle="modal" data-bs-target="#studentModal">
+				Créer un étudiant <i class="hgi-stroke hgi-add-circle"></i>
+			</button>
+		</div>
+
+		<!-- Liste des étudiants -->
+		<div class="students-list mt-5 px-4 table-responsive">
+			<table class="table border table-hover">
+				<thead class="table-primary">
+					<tr>
+						<th><input type="checkbox" class="form-check-input" /></th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Date d'inscription</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let student of students">
+						<td><input type="checkbox" class="form-check-input" /></td>
+						<td>{{ student.nom }}</td>
+						<td>{{ student.prenom }}</td>
+						<td>{{ student.dateInscription | date: 'dd/MM/yyyy' }}</td>
+						<!-- <td>
+							<div class="dropdown">
+								<a href="#" class="text-decoration-none text-black" id="dropdownMenuButton" data-bs-toggle="dropdown"
+									aria-expanded="false">
+									<i class="hgi-stroke hgi-more-vertical"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<li>
+										<a class="dropdown-item" href="#" (click)="viewStudent(student)" data-bs-toggle="offcanvas"
+											data-bs-target="#offcanvasStudentInfo" aria-controls="offcanvasStudentInfo">
+											Voir les informations
+										</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="#" (click)="associateCourses(student)" data-bs-toggle="modal"
+											data-bs-target="#courseModal" aria-controls="courseModal">
+											Associer un cours
+										</a>
+									</li>
+								</ul>
+							</div>
+						</td> -->
+
+						<td>
+							<div class="dropdown">
+								<a href="#" class="text-decoration-none text-black" id="dropdownMenuButton" data-bs-toggle="dropdown"
+									aria-expanded="false">
+									<i class="hgi-stroke hgi-more-vertical"></i>
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<li><a class="dropdown-item" href="#">Modifier</a></li>
+									<li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas"
+											data-bs-target="#offcanvasStudentInfo" aria-controls="offcanvasStudentInfos">Voir les
+											informations</a></li>
+									<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#courseModal">Associer un
+											cours</a></li>
+									<li><a class="dropdown-item" href="#">Supprimer</a></li>
+								</ul>
+							</div>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+			<div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+				<p>{{courses.length }} résultats</p>
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Previous">&lt;</a>
+						</li>
+						<li class="page-item-active"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">...</a></li>
+						<li class="page-item">
+							<a class="page-link" href="#" aria-label="Next">&gt;</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<!-- Pagination -->
+		<div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
+			<p>{{ students.length }} résultats</p>
+		</div>
+	</main>
+
+
+	<!--offcanvas view student informations-->
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasStudentInfo" aria-labelledby="offcanvasStudentInfos">
+		<div class="offcanvas-header">
+			<div class="student-picture d-flex justify-content-center align-items-center w-100">
+				<img class="rounded-circle" src="../assets/images/adel.jpg" alt="mon image">
+			</div>
+		</div>
+		<div class="offcanvas-body">
+
+
+			<div>
+				<ul class="d-flex flex-column list-unstyled stutent-list-info">
+					<li><span>Numéro d'étudiant:</span> {{selectedStudent?.id}}</li>
+					<li><span>Nom:</span>{{selectedStudent?.id}} </li>
+					<li><span>Prénom:</span> {{selectedStudent?.id}}</li>
+					<li><span>Genre:</span> {{selectedStudent?.id}}</li>
+					<li><span>Date de naissance:</span> {{selectedStudent?.id}}</li>
+					<li><span>Adresse:</span> {{selectedStudent?.id}}</li>
+					<li><span>Adresse e-mail:</span> {{selectedStudent?.id}}</li>
+					<li><span>Numéro de téléphone:</span> {{selectedStudent?.id}}</li>
+					<li><span>Nombre de cours associés:</span> {{selectedStudent?.id}}</li>
+					<li><span>Date d'inscription:</span> {{selectedStudent?.id}}</li>
+				</ul>
+
+			</div>
+
+
+		</div>
+
+	</div><!--fin offcanvas view student informations-->
+
+	<!-- Modal pour ajouter un étudiant -->
+	<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="studentModalLabel">Créer un étudiant</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="nom" class="form-label">Nom</label>
+							<input type="text" id="nom" class="form-control" [(ngModel)]="newStudent.nom" name="nom" required />
+						</div>
+						<div class="mb-3">
+							<label for="prenom" class="form-label">Prénom</label>
+							<input type="text" id="prenom" class="form-control" [(ngModel)]="newStudent.prenom" name="prenom"
+								required />
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email</label>
+							<input type="email" id="email" class="form-control" [(ngModel)]="newStudent.email" name="email" />
+						</div>
+						<div class="mb-3">
+							<label for="telephone" class="form-label">Téléphone</label>
+							<input type="text" id="telephone" class="form-control" [(ngModel)]="newStudent.telephone"
+								name="telephone" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" (click)="addStudent()" data-bs-dismiss="modal">
+						Ajouter
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

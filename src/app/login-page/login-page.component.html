@@ -1,0 +1,36 @@
+<main class="d-flex align-items-center justify-content-center vh-100">
+	<div class="container-fluid">
+		<div class="row h-100">
+			<!-- Logo Section -->
+			<div class="col-lg-6 d-none d-lg-flex bg-primary align-items-center justify-content-center">
+				<img src="assets/images/logo-white.svg" alt="Logo Ensitech" class="w-75">
+			</div>
+
+			<!-- Login Section -->
+			<div class="col-lg-6 col-12 d-flex align-items-center justify-content-center">
+				<div class="w-75">
+					<h1 class="title-login mb-4 text-center">Connexion</h1>
+					<form class="formulaire">
+						<div class="input-group mb-4">
+							<span class="input-group-text" id="addon-wrapping">
+								<i class="hgi-stroke hgi-user"></i>
+							</span>
+							<input type="text" class="form-control" aria-label="Identifiant" aria-describedby="addon-wrapping"
+								placeholder="Votre identifiant" />
+						</div>
+						<div class="input-group mb-4">
+							<span class="input-group-text" id="addon-wrapping">
+								<i class="hgi-stroke hgi-lock-password"></i>
+							</span>
+							<input type="password" class="form-control" aria-label="Mot de passe" aria-describedby="addon-wrapping"
+								placeholder="Votre mot de passe" />
+						</div>
+						<a routerLink="/dashboard" routerLinkActive="active" aria-label="Connexion"
+							class="submit-btn d-flex justify-content-center align-items-center">Connexion</a>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
