@@ -10,10 +10,10 @@ import { GestionCoursComponent } from './components/gestion-cours/gestion-cours.
 import { GestionStudentsComponent } from './components/gestion-students/gestion-students.component';
 import { GestionTeachersComponent } from './components/gestion-teachers/gestion-teachers.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-import { ReportsComponent } from './components/reports/reports.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { AuthService } from './services/auth/auth.service';
+
 export function initializeApp(authService: AuthService) {
   return () => {
     // Vérifier l'authentification au démarrage
@@ -31,11 +31,7 @@ export function initializeApp(authService: AuthService) {
     DashboardComponent,
     DashboardMainComponent,
     GestionStudentsComponent,
-    ReportsComponent,
     GestionTeachersComponent,
-    SearchStudentComponent,
-    FilterpipePipe,
-    FiltercoursePipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [
