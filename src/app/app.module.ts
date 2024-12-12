@@ -13,6 +13,9 @@ import { DashboardMainComponent } from './dashboard-main/dashboard-main.componen
 import { GestionStudentsComponent } from './gestion-students/gestion-students.component';
 import { ReportsComponent } from './reports/reports.component';
 import { GestionTeachersComponent } from './gestion-teachers/gestion-teachers.component';
+import { SearchStudentComponent } from './search-student/search-student.component';
+import { FilterpipePipe } from './filterpipe.pipe';
+import { FiltercoursePipe } from './filtercourse.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { GestionTeachersComponent } from './gestion-teachers/gestion-teachers.co
     GestionStudentsComponent,
     ReportsComponent,
     GestionTeachersComponent,
+    SearchStudentComponent,
+    FilterpipePipe,
+    FiltercoursePipe,
   ],
   imports: [
     BrowserModule,
