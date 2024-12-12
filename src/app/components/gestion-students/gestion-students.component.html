@@ -7,14 +7,14 @@
 
 		<!-- Barre de recherche et bouton Ajouter -->
 		<div class="d-flex justify-content-between align-items-center flex-wrap mt-4 p-4">
-			<form class="col-6 col-md-9" style="height: 44px;">
+			<div class="col-6 col-md-9" style="height: 44px;">
 				<div class="input-group">
-					<span class="input-group-text" id="basic-addon1">
+					<span class="input-group-text" id="basic-addon1" >
 						<i class="hgi-stroke hgi-search-01"></i>
 					</span>
-					<input type="search" placeholder="Rechercher un étudiant..." class="form-control" />
+					<input type="search" placeholder="Rechercher un étudiant..." class="form-control" [(ngModel)]="filtername"/>
 				</div>
-			</form>
+			</div>
 			<button type="button" class="primary-btn border-0" data-bs-toggle="modal" data-bs-target="#studentModal">
 				Créer un étudiant <i class="hgi-stroke hgi-add-circle"></i>
 			</button>
@@ -33,7 +33,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let student of students">
+					<tr *ngFor="let student of students | filterpipe : filtername">
 						<td><input type="checkbox" class="form-check-input" /></td>
 						<td>{{ student.nom }}</td>
 						<td>{{ student.prenom }}</td>

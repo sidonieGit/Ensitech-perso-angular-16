@@ -5,12 +5,12 @@
 
 		<!-- Search Bar & Add Courses Button -->
 		<div class="d-flex justify-content-between align-items-center flex-md-row mt-4 p-4">
-			<form action="#" class="col-6 col-md-9" style="height: 44px;">
+			<div action="#" class="col-6 col-md-9" style="height: 44px;">
 				<div class="input-group">
 					<span class="input-group-text" id="basic-addon1"><i class="hgi-stroke hgi-search-01"></i></span>
-					<input type="search" name="search" id="search" placeholder="Rechercher un cours..." class="form-control">
+					<input type="search" name="search" id="search" placeholder="Rechercher un cours..." class="form-control" [(ngModel)]="courseFilter">
 				</div>
-			</form>
+			</div>
 			<!-- Button to open modal -->
 			<div class="d-flex justify-content-end col-3">
 				<button class="primary-btn" data-bs-toggle="modal" data-bs-target="#courseModal">
@@ -36,7 +36,7 @@
 				</thead>
 				<tbody>
 					<!-- Replace this with a dynamic *ngFor directive -->
-					<tr *ngFor="let course of courses">
+					<tr *ngFor="let course of courses | filtercourse : courseFilter">
 						<td><input type="checkbox" name="check-all" class="form-check-input row-checkbox"></td>
 						<td>{{ course.id }}</td>
 						<td>{{ course.theme }}</td>

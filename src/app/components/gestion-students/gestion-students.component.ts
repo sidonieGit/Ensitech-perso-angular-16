@@ -9,6 +9,7 @@ import { Student } from '../../student';
   styleUrls: ['./gestion-students.component.css'],
 })
 export class GestionStudentsComponent implements OnInit {
+  filtername: string ='';
   students: Student[] = [];
   courses: Cours[] = [];
   paginatedStudents: Student[] = [];

@@ -33,6 +33,9 @@ export function initializeApp(authService: AuthService) {
     GestionStudentsComponent,
     ReportsComponent,
     GestionTeachersComponent,
+    SearchStudentComponent,
+    FilterpipePipe,
+    FiltercoursePipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [
