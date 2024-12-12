@@ -1,7 +1,6 @@
 /* Global styles */
 body,
 html {
-  height: 100%;
   margin: 0;
   font-family: var(--font-base);
 }
@@ -9,6 +8,10 @@ html {
 /* Login Page Styles */
 main {
   background-color: var(--color-gray);
+}
+
+.container-fluid {
+  height: 100vh;
 }
 
 .title-login {
@@ -20,14 +23,13 @@ main {
 
 .formulaire .input-group-text {
   background-color: var(--color-gray);
-  border: 0;
 }
 
 .formulaire .form-control {
   background-color: var(--color-gray);
-  border: 1px solid var(--color-primary);
   border-radius: 4px;
   font-size: 1rem;
+  padding: 12px;
 }
 
 .submit-btn {

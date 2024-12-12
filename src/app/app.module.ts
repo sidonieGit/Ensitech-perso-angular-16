@@ -1,18 +1,25 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { GestionCoursComponent } from './gestion-cours/gestion-cours.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { TopbarComponent } from './topbar/topbar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardMainComponent } from './dashboard-main/dashboard-main.component';
-import { GestionStudentsComponent } from './gestion-students/gestion-students.component';
-import { ReportsComponent } from './reports/reports.component';
-import { GestionTeachersComponent } from './gestion-teachers/gestion-teachers.component';
+import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GestionCoursComponent } from './components/gestion-cours/gestion-cours.component';
+import { GestionStudentsComponent } from './components/gestion-students/gestion-students.component';
+import { GestionTeachersComponent } from './components/gestion-teachers/gestion-teachers.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
+import { AuthService } from './services/auth/auth.service';
+export function initializeApp(authService: AuthService) {
+  return () => {
+    // Vérifier l'authentification au démarrage
+    authService.checkAuthentication();
+  };
+}
 
 @NgModule({
   declarations: [
@@ -27,12 +34,15 @@ import { GestionTeachersComponent } from './gestion-teachers/gestion-teachers.co
     ReportsComponent,
     GestionTeachersComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule, // Ajout de FormsModule ici
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AuthService],
+      multi: true,
+    },
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

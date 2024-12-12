@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data.service';
-import { Student } from '../student';
-import { Cours } from '../cours';
+import { Cours } from '../../cours';
+import { DataService } from '../../data.service';
+import { Student } from '../../student';
 
 @Component({
   selector: 'app-gestion-students',
