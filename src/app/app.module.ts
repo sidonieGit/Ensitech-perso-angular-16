@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
@@ -14,7 +14,14 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
 import { FiltercoursePipe } from './filtercourse.pipe';
 import { FilterpipePipe } from './filterpipe.pipe';
-import { ReportsComponent } from './reports/reports.component';
+import { AuthService } from './services/auth/auth.service';
+
+export function initializeApp(authService: AuthService) {
+  return () => {
+    // Vérifier l'authentification au démarrage
+    authService.checkAuthentication();
+  };
+}
 
 @NgModule({
   declarations: [
@@ -26,18 +33,19 @@ import { ReportsComponent } from './reports/reports.component';
     DashboardComponent,
     DashboardMainComponent,
     GestionStudentsComponent,
-    ReportsComponent,
     GestionTeachersComponent,
-    // SearchStudentComponent,
     FilterpipePipe,
     FiltercoursePipe,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule, // Ajout de FormsModule ici
+  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AuthService],
+      multi: true,
+    },
   ],
-  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

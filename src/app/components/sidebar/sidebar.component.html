@@ -7,34 +7,29 @@
 	</div>
 	<div class="d-flex flex-column align-items-center justify-content-between flex-grow-1">
 		<ul class="navbar-nav w-100 flex-column">
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="hasAccess(['directeur'])">
 				<a class="nav-link" routerLink="/dashboard" routerLinkActive="actived">
 					<i class="hgi-stroke hgi-dashboard-square-01"></i> Dashboard
 				</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="hasAccess(['directeur', 'responsable'])">
 				<a class="nav-link scrollto" routerLink="/students" routerLinkActive="actived">
 					<i class="hgi-stroke hgi-course"></i> Gestion Etudiants
 				</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="hasAccess(['directeur', 'responsable'])">
 				<a class="nav-link scrollto" routerLink="/teachers" routerLinkActive="actived">
 					<i class="hgi-stroke hgi-teaching"></i> Gestion Enseignants
 				</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" *ngIf="hasAccess(['directeur', 'responsable'])">
 				<a class="nav-link scrollto" routerLink="/courses" routerLinkActive="actived">
 					<i class="hgi-stroke hgi-course"></i> Gestion Cours
 				</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link scrollto" routerLink="/reports" routerLinkActive="actived">
-					<i class="hgi-stroke hgi-analysis-text-link"></i> Rapports
-				</a>
-			</li>
 		</ul>
-		<div class="mt-auto deconnexion">
-			<a routerLink="/login-page" class="btn btn-outline-primary">Déconnexion</a>
+		<div class="mt-auto deconnexion w-100">
+			<button (click)="logout()" class="btn btn-outline-primary w-100">Déconnexion</button>
 		</div>
 	</div>
 </nav>
