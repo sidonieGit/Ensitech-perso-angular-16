@@ -14,5 +14,4 @@ export const COURSES: Cours[] = [
   { id: 'I1AR11', theme: 'Techniques d\'expression', nombreHeures: '15h00min' },
   { id: 'I1AR12', theme: 'Algorithmique 2', nombreHeures: '50h00min' },
   { id: 'I1AR13', theme: 'Electronique', nombreHeures: '20h00min' },
-
 ];
