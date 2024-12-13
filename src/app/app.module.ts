@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { GestionCoursComponent } from './gestion-cours/gestion-cours.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { TopbarComponent } from './topbar/topbar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardMainComponent } from './dashboard-main/dashboard-main.component';
-import { GestionStudentsComponent } from './gestion-students/gestion-students.component';
-import { ReportsComponent } from './reports/reports.component';
-import { GestionTeachersComponent } from './gestion-teachers/gestion-teachers.component';
-import { SearchStudentComponent } from './search-student/search-student.component';
-import { FilterpipePipe } from './filterpipe.pipe';
+import { DashboardMainComponent } from './components/dashboard-main/dashboard-main.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { GestionCoursComponent } from './components/gestion-cours/gestion-cours.component';
+import { GestionStudentsComponent } from './components/gestion-students/gestion-students.component';
+import { GestionTeachersComponent } from './components/gestion-teachers/gestion-teachers.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { TopbarComponent } from './components/topbar/topbar.component';
 import { FiltercoursePipe } from './filtercourse.pipe';
+import { FilterpipePipe } from './filterpipe.pipe';
+import { ReportsComponent } from './reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +28,7 @@ import { FiltercoursePipe } from './filtercourse.pipe';
     GestionStudentsComponent,
     ReportsComponent,
     GestionTeachersComponent,
-    SearchStudentComponent,
+    // SearchStudentComponent,
     FilterpipePipe,
     FiltercoursePipe,
   ],

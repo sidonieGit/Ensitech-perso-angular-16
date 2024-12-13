@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { COURSES } from '../mock-cours';
+import { COURSES } from '../../mock-cours';
 
 @Component({
   selector: 'app-gestion-cours',
@@ -8,5 +8,5 @@ import { COURSES } from '../mock-cours';
 })
 export class GestionCoursComponent {
   courses = COURSES;
-  courseFilter: string ='';
+  courseFilter: string = '';
 }
