@@ -8,5 +8,5 @@ import { COURSES } from '../../mock-cours';
 })
 export class GestionCoursComponent {
   courses = COURSES;
-  courseFilter: string ='';
+  courseFilter: string = '';
 }

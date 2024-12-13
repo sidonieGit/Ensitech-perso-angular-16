@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Cours } from '../../cours';
-import { DataService } from '../../data.service';
-import { Student } from '../../student';
+import { Cours } from 'src/app/cours';
+import { DataService } from 'src/app/data.service';
+import { Student } from 'src/app/student';
 
 @Component({
   selector: 'app-gestion-students',
@@ -9,7 +9,7 @@ import { Student } from '../../student';
   styleUrls: ['./gestion-students.component.css'],
 })
 export class GestionStudentsComponent implements OnInit {
-  filtername: string ='';
+  filtername: string = '';
   students: Student[] = [];
   courses: Cours[] = [];
   paginatedStudents: Student[] = [];
