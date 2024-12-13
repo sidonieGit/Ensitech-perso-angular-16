@@ -12,6 +12,8 @@ import { GestionTeachersComponent } from './components/gestion-teachers/gestion-
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopbarComponent } from './components/topbar/topbar.component';
+import { FiltercoursePipe } from './filtercourse.pipe';
+import { FilterpipePipe } from './filterpipe.pipe';
 import { AuthService } from './services/auth/auth.service';
 
 export function initializeApp(authService: AuthService) {
@@ -32,6 +34,8 @@ export function initializeApp(authService: AuthService) {
     DashboardMainComponent,
     GestionStudentsComponent,
     GestionTeachersComponent,
+    FilterpipePipe,
+    FiltercoursePipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [
