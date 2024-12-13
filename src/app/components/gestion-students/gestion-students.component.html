@@ -9,10 +9,10 @@
 		<div class="d-flex justify-content-between align-items-center flex-wrap mt-4 p-4">
 			<div class="col-6 col-md-9" style="height: 44px;">
 				<div class="input-group">
-					<span class="input-group-text" id="basic-addon1" >
+					<span class="input-group-text" id="basic-addon1">
 						<i class="hgi-stroke hgi-search-01"></i>
 					</span>
-					<input type="search" placeholder="Rechercher un étudiant..." class="form-control" [(ngModel)]="filtername"/>
+					<input type="search" placeholder="Rechercher un étudiant..." class="form-control" [(ngModel)]="filtername" />
 				</div>
 			</div>
 			<button type="button" class="primary-btn border-0" data-bs-toggle="modal" data-bs-target="#studentModal">
@@ -83,27 +83,18 @@
 				</tbody>
 			</table>
 			<div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-				<p>{{courses.length }} résultats</p>
+				<p>{{students.length }} résultats</p>
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
 						<li class="page-item">
 							<a class="page-link" href="#" aria-label="Previous">&lt;</a>
 						</li>
-						<li class="page-item-active"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">...</a></li>
 						<li class="page-item">
 							<a class="page-link" href="#" aria-label="Next">&gt;</a>
 						</li>
 					</ul>
 				</nav>
 			</div>
-		</div>
-
-		<!-- Pagination -->
-		<div class="d-flex justify-content-between align-items-center flex-wrap mt-3">
-			<p>{{ students.length }} résultats</p>
 		</div>
 	</main>
 
