@@ -12,7 +12,7 @@
 					<span class="input-group-text" id="basic-addon1">
 						<i class="hgi-stroke hgi-search-01"></i>
 					</span>
-					<input type="search" placeholder="Rechercher un enseignant..." class="form-control" />
+					<input type="search" placeholder="Rechercher un enseignant..." class="form-control" [(ngModel)]="filtername"/>
 				</div>
 			</div>
 			<button class="primary-btn border-0" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
@@ -33,10 +33,10 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let teacher of teachers">
+					<tr *ngFor="let teacher of teachers | filterpipe:filtername">
 						<td><input type="checkbox" class="form-check-input" /></td>
-						<td>{{ teacher.nom }}</td>
-						<td>{{ teacher.prenom }}</td>
+						<td>{{ teacher.nom | titlecase }}</td>
+						<td>{{ teacher.prenom | titlecase}}</td>
 						<td>{{ teacher.dateDAjout| date: 'dd/MM/yyyy' }}</td>
 
 						<td>

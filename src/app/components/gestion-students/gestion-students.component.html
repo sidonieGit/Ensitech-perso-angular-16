@@ -35,8 +35,8 @@
 				<tbody>
 					<tr *ngFor="let student of students | filterpipe : filtername">
 						<td><input type="checkbox" class="form-check-input" /></td>
-						<td>{{ student.nom }}</td>
-						<td>{{ student.prenom }}</td>
+						<td>{{ student.nom | titlecase }}</td>
+						<td>{{ student.prenom | titlecase }}</td>
 						<td>{{ student.dateInscription | date: 'dd/MM/yyyy' }}</td>
 						<!-- <td>
 							<div class="dropdown">

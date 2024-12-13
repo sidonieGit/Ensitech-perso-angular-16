@@ -40,8 +40,8 @@
 					<tr *ngFor="let course of courses | filtercourse : courseFilter">
 						<td><input type="checkbox" name="check-all" class="form-check-input row-checkbox"></td>
 						<td>{{ course.id }}</td>
-						<td>{{ course.theme }}</td>
-						<td>{{ course.nombreHeures }}</td>
+						<td>{{ course.theme | titlecase }}</td>
+						<td>{{ course.nombreHeures | lowercase }}</td>
 						<td>
 							<div class="dropdown">
 								<a href="#" class="text-decoration-none text-black" id="dropdownMenuButton" data-bs-toggle="dropdown"

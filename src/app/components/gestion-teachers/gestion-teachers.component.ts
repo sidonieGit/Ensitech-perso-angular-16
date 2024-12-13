@@ -8,6 +8,7 @@ import { TeachersService } from 'src/app/services/teachers/teachers.service';
   styleUrls: ['./gestion-teachers.component.css'],
 })
 export class GestionTeachersComponent implements OnInit {
+  filtername: string = '';
   teachers: Teacher[] = [];
   selectedTeacher: Teacher | null = null;
   editingTeacher: Teacher | null = null;
