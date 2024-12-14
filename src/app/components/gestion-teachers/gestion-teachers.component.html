@@ -14,6 +14,7 @@
 					</span>
 					<input type="search" placeholder="Rechercher un enseignant..." class="form-control" [(ngModel)]="filtername"
 						(ngModelChange)="updateFilteredTeachers()" />
+
 				</div>
 			</div>
 			<button class="primary-btn border-0" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
@@ -34,10 +35,12 @@
 					</tr>
 				</thead>
 				<tbody>
+
 					<tr *ngFor="let teacher of filteredTeachers">
+
 						<td><input type="checkbox" class="form-check-input" /></td>
-						<td>{{ teacher.nom }}</td>
-						<td>{{ teacher.prenom }}</td>
+						<td>{{ teacher.nom | titlecase }}</td>
+						<td>{{ teacher.prenom | titlecase}}</td>
 						<td>{{ teacher.dateDAjout| date: 'dd/MM/yyyy' }}</td>
 
 						<td>
