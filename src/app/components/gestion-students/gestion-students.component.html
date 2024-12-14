@@ -12,16 +12,17 @@
 					<span class="input-group-text" id="basic-addon1">
 						<i class="hgi-stroke hgi-search-01"></i>
 					</span>
-					<input type="search" placeholder="Rechercher un étudiant..." class="form-control" [(ngModel)]="filtername" />
+					<input type="search" placeholder="Rechercher un étudiant..." class="form-control" [(ngModel)]="filtername"
+						(ngModelChange)="updateFilteredStudents()" />
 				</div>
 			</div>
-			<button type="button" class="primary-btn border-0" data-bs-toggle="modal" data-bs-target="#studentModal">
-				Créer un étudiant <i class="hgi-stroke hgi-add-circle"></i>
+			<button class="primary-btn border-0" data-bs-toggle="modal" data-bs-target="#addTeacherModal">
+				Ajouter un étudiant <i class="hgi-stroke hgi-add-circle"></i>
 			</button>
 		</div>
 
 		<!-- Liste des étudiants -->
-		<div class="students-list mt-5 px-4 table-responsive">
+		<div class="students-list mt-5 px-4">
 			<table class="table border table-hover">
 				<thead class="table-primary">
 					<tr>
@@ -33,33 +34,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr *ngFor="let student of students | filterpipe : filtername">
+					<tr *ngFor="let student of filteredStudents">
 						<td><input type="checkbox" class="form-check-input" /></td>
 						<td>{{ student.nom }}</td>
 						<td>{{ student.prenom }}</td>
-						<td>{{ student.dateInscription | date: 'dd/MM/yyyy' }}</td>
-						<!-- <td>
-							<div class="dropdown">
-								<a href="#" class="text-decoration-none text-black" id="dropdownMenuButton" data-bs-toggle="dropdown"
-									aria-expanded="false">
-									<i class="hgi-stroke hgi-more-vertical"></i>
-								</a>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<li>
-										<a class="dropdown-item" href="#" (click)="viewStudent(student)" data-bs-toggle="offcanvas"
-											data-bs-target="#offcanvasStudentInfo" aria-controls="offcanvasStudentInfo">
-											Voir les informations
-										</a>
-									</li>
-									<li>
-										<a class="dropdown-item" href="#" (click)="associateCourses(student)" data-bs-toggle="modal"
-											data-bs-target="#courseModal" aria-controls="courseModal">
-											Associer un cours
-										</a>
-									</li>
-								</ul>
-							</div>
-						</td> -->
+						<td>{{ student.dateInscription| date: 'dd/MM/yyyy' }}</td>
 
 						<td>
 							<div class="dropdown">
@@ -68,13 +47,16 @@
 									<i class="hgi-stroke hgi-more-vertical"></i>
 								</a>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-									<li><a class="dropdown-item" href="#">Modifier</a></li>
-									<li><a class="dropdown-item" href="#" data-bs-toggle="offcanvas"
-											data-bs-target="#offcanvasStudentInfo" aria-controls="offcanvasStudentInfos">Voir les
+									<li><a class="dropdown-item" href="javascript:void(0);" (click)="editStudent(student)"
+											data-bs-toggle="modal" data-bs-target="#editTeacherModal">Modifier</a>
+									</li>
+									<li><a class="dropdown-item" href="javascript:void(0);" (click)="viewStudent(student)"
+											data-bs-toggle="modal" data-bs-target="#viewTeacherModal">Voir les
 											informations</a></li>
 									<li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#courseModal">Associer un
 											cours</a></li>
-									<li><a class="dropdown-item" href="#">Supprimer</a></li>
+									<li><a class="dropdown-item" href="javascript:void(0);"
+											(click)="deleteStudent(student.id)">Supprimer</a></li>
 								</ul>
 							</div>
 						</td>
@@ -83,7 +65,7 @@
 				</tbody>
 			</table>
 			<div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-				<p>{{students.length }} résultats</p>
+				<p>{{ filteredStudents.length }} résultats</p>
 				<nav aria-label="Page navigation">
 					<ul class="pagination">
 						<li class="page-item">
@@ -98,74 +80,104 @@
 		</div>
 	</main>
 
-
-	<!--offcanvas view student informations-->
-	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasStudentInfo" aria-labelledby="offcanvasStudentInfos">
-		<div class="offcanvas-header">
-			<div class="student-picture d-flex justify-content-center align-items-center w-100">
-				<img class="rounded-circle" src="../assets/images/adel.jpg" alt="mon image">
-			</div>
-		</div>
-		<div class="offcanvas-body">
-
-
-			<div>
-				<ul class="d-flex flex-column list-unstyled stutent-list-info">
-					<li><span>Numéro d'étudiant:</span> {{selectedStudent?.id}}</li>
-					<li><span>Nom:</span>{{selectedStudent?.id}} </li>
-					<li><span>Prénom:</span> {{selectedStudent?.id}}</li>
-					<li><span>Genre:</span> {{selectedStudent?.id}}</li>
-					<li><span>Date de naissance:</span> {{selectedStudent?.id}}</li>
-					<li><span>Adresse:</span> {{selectedStudent?.id}}</li>
-					<li><span>Adresse e-mail:</span> {{selectedStudent?.id}}</li>
-					<li><span>Numéro de téléphone:</span> {{selectedStudent?.id}}</li>
-					<li><span>Nombre de cours associés:</span> {{selectedStudent?.id}}</li>
-					<li><span>Date d'inscription:</span> {{selectedStudent?.id}}</li>
-				</ul>
-
-			</div>
-
-
-		</div>
-
-	</div><!--fin offcanvas view student informations-->
-
 	<!-- Modal pour ajouter un étudiant -->
-	<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addTeacherModal" tabindex="-1" aria-labelledby="addTeacherModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="studentModalLabel">Créer un étudiant</h5>
+					<h5 class="modal-title">Ajouter un étudiant</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				<div class="modal-body">
-					<form>
+					<form (ngSubmit)="addStudent()">
 						<div class="mb-3">
 							<label for="nom" class="form-label">Nom</label>
-							<input type="text" id="nom" class="form-control" [(ngModel)]="newStudent.nom" name="nom" required />
+							<input ype="text" [(ngModel)]="newStudent.nom" name="nom" placeholder="Nom" required
+								class="form-control" />
 						</div>
 						<div class="mb-3">
 							<label for="prenom" class="form-label">Prénom</label>
-							<input type="text" id="prenom" class="form-control" [(ngModel)]="newStudent.prenom" name="prenom"
-								required />
+							<input type="text" [(ngModel)]="newStudent.prenom" name="prenom" placeholder="Prénom" required
+								class="form-control" />
 						</div>
 						<div class="mb-3">
 							<label for="email" class="form-label">Email</label>
-							<input type="email" id="email" class="form-control" [(ngModel)]="newStudent.email" name="email" />
+							<input class="form-control" type="email" [(ngModel)]="newStudent.email" name="email"
+								placeholder="Email" />
 						</div>
 						<div class="mb-3">
-							<label for="telephone" class="form-label">Téléphone</label>
-							<input type="text" id="telephone" class="form-control" [(ngModel)]="newStudent.telephone"
-								name="telephone" />
+							<label for="email" class="form-label">Téléphone</label>
+							<input class="form-control" type="text" [(ngModel)]="newStudent.telephone" name="telephone"
+								placeholder="Téléphone" />
+						</div>
+						<div class="modal-footer">
+							<button type="submit" class="primary-btn border-0" data-bs-dismiss="modal">Ajouter</button>
 						</div>
 					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" (click)="addStudent()" data-bs-dismiss="modal">
-						Ajouter
-					</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<!-- Modal pour visualiser les informations d'un étudiant -->
+	<div class="modal fade" id="viewTeacherModal" tabindex="-1" aria-labelledby="viewTeacherModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Détails de l'étudiant</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body">
+					<p><strong>Nom :</strong> {{ selectedStudent?.nom }}</p>
+					<p><strong>Prénom :</strong> {{ selectedStudent?.prenom }}</p>
+					<p><strong>Email :</strong> {{ selectedStudent?.email }}</p>
+					<p><strong>Téléphone :</strong> {{ selectedStudent?.telephone }}</p>
+					<p><strong>Date d'inscription :</strong> {{ selectedStudent?.dateInscription | date: 'dd/MM/yyyy' }}</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal pour modifier un étudiant -->
+	<div class="modal fade" id="editTeacherModal" tabindex="-1" aria-labelledby="editTeacherModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Modifier les informations de l'étudiant</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+				<div class="modal-body" *ngIf="editingStudent">
+					<form (ngSubmit)="saveEditStudent()">
+						<div class="mb-3">
+							<label for="nom" class="form-label">Nom</label>
+							<input type="text" [(ngModel)]="editingStudent.nom" name="nom" placeholder="Nom" required
+								class="form-control" />
+						</div>
+						<div class="mb-3">
+							<label for="prenom" class="form-label">Prénom</label>
+							<input type="text" [(ngModel)]="editingStudent.prenom" name="prenom" placeholder="Prénom" required
+								class="form-control" />
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Email</label>
+							<input type="email" [(ngModel)]="editingStudent.email" name="email" placeholder="Email"
+								class="form-control" />
+						</div>
+						<div class="mb-3">
+							<label for="telephone" class="form-label">Téléphone</label>
+							<input type="text" [(ngModel)]="editingStudent.telephone" name="telephone" placeholder="Téléphone"
+								class="form-control" />
+						</div>
+						<button type="submit" class="primary-btn border-0" data-bs-dismiss="modal">Enregistrer</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </section>

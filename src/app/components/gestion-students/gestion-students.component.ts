@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Cours } from 'src/app/cours';
-import { DataService } from 'src/app/data.service';
-import { Student } from 'src/app/student';
+import { StudentsService } from 'src/app/services/students/students.service';
+import { Student } from '../../student';
 
 @Component({
   selector: 'app-gestion-students',
@@ -11,107 +10,73 @@ import { Student } from 'src/app/student';
 export class GestionStudentsComponent implements OnInit {
   filtername: string = '';
   students: Student[] = [];
-  courses: Cours[] = [];
-  paginatedStudents: Student[] = [];
-  associatedCourses: Cours[] = [];
-  selectedStudent: Student | null = null; // Track the selected student
-  currentPage = 1;
-  itemsPerPage = 5;
-  totalPages = 1;
-
+  selectedStudent: Student | null = null;
+  filteredStudents: Student[] = [];
+  editingStudent: Student | null = null;
   newStudent: Student = {
     nom: '',
     prenom: '',
+    telephone: '',
     dateInscription: new Date(),
     email: '',
-    telephone: '',
   };
 
-  constructor(private dataService: DataService) {}
+  constructor(private student: StudentsService) {}
 
   ngOnInit(): void {
     this.loadStudents();
-    this.loadCourses();
-    this.updatePagination();
   }
 
-  // Load students from the service
   loadStudents(): void {
-    this.students = this.dataService.getStudents();
-    this.updatePagination();
+    this.students = this.student.getStudents();
+    this.updateFilteredStudents();
   }
 
-  // Load courses from the service
-  loadCourses(): void {
-    this.courses = this.dataService.getCourses();
+  updateFilteredStudents(): void {
+    this.filteredStudents = this.students.filter(
+      (student) =>
+        student.nom.toLowerCase().includes(this.filtername.toLowerCase()) ||
+        student.prenom.toLowerCase().includes(this.filtername.toLowerCase())
+    );
   }
 
-  // Add a new student
   addStudent(): void {
     if (this.newStudent.nom && this.newStudent.prenom) {
-      this.newStudent.dateInscription = new Date();
-      this.dataService.addStudent(this.newStudent);
+      this.student.addStudent(this.newStudent);
       this.loadStudents();
-      this.resetNewStudent();
+      this.resetForm();
+      this.updateFilteredStudents();
     }
   }
-  selectStudent(student: Student): void {
-    this.selectedStudent = student;
-  }
-  // Reset the student form
-  resetNewStudent(): void {
+
+  resetForm(): void {
     this.newStudent = {
       nom: '',
       prenom: '',
+      telephone: '',
       dateInscription: new Date(),
       email: '',
-      telephone: '',
     };
   }
 
-  // View student details
+  deleteStudent(id: number | undefined): void {
+    this.student.deleteStudent(id);
+    this.loadStudents();
+  }
+
   viewStudent(student: Student): void {
     this.selectedStudent = student;
   }
 
-  // Handle course association
-  associateCourses(student: Student): void {
-    this.selectedStudent = student;
-    this.associatedCourses = []; // Clear any previously selected courses
+  editStudent(student: Student): void {
+    this.editingStudent = { ...student };
   }
 
-  // Toggle course association
-  toggleCourseAssociation(course: Cours): void {
-    const index = this.associatedCourses.findIndex((c) => c.id === course.id);
-    if (index > -1) {
-      this.associatedCourses.splice(index, 1); // Remove if already selected
-    } else {
-      this.associatedCourses.push(course); // Add if not already selected
+  saveEditStudent(): void {
+    if (this.editingStudent) {
+      this.student.updateStudent(this.editingStudent);
+      this.loadStudents();
+      this.editingStudent = null;
     }
-  }
-
-  // Finalize course association
-  saveAssociatedCourses(): void {
-    if (this.selectedStudent) {
-      console.log(
-        `Courses associated with ${this.selectedStudent.nom}:`,
-        this.associatedCourses
-      );
-      this.associatedCourses = []; // Reset after saving
-    }
-  }
-
-  // Pagination logic
-  updatePagination(): void {
-    this.totalPages = Math.ceil(this.students.length / this.itemsPerPage);
-    this.changePage(this.currentPage);
-  }
-
-  changePage(page: number): void {
-    if (page < 1 || page > this.totalPages) return;
-    this.currentPage = page;
-    const startIndex = (page - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.paginatedStudents = this.students.slice(startIndex, endIndex);
   }
 }
