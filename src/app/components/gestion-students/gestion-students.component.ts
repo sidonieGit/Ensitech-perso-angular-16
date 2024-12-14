@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Cours } from 'src/app/cours';
+import { CoursesService } from 'src/app/services/courses/courses.service';
 import { StudentsService } from 'src/app/services/students/students.service';
 import { Student } from '../../student';
 
@@ -20,16 +22,53 @@ export class GestionStudentsComponent implements OnInit {
     dateInscription: new Date(),
     email: '',
   };
+  allCourses: Cours[] = [];
 
-  constructor(private student: StudentsService) {}
+  constructor(
+    private student: StudentsService,
+    private courseService: CoursesService
+  ) {}
 
   ngOnInit(): void {
     this.loadStudents();
+    this.loadCourses();
   }
 
   loadStudents(): void {
     this.students = this.student.getStudents();
     this.updateFilteredStudents();
+  }
+
+  loadCourses(): void {
+    this.allCourses = this.courseService.getCourses();
+  }
+
+  openAssociateCoursesModal(student: Student): void {
+    this.selectedStudent = student;
+    const selectedCourseIds = student.courses?.map((course) => course.id) || [];
+    this.allCourses = this.allCourses.map((course) => ({
+      ...course,
+      selected: selectedCourseIds.includes(course.id!),
+    }));
+  }
+
+  getCourseTitles(courses: Cours[] | undefined): string {
+    return (
+      courses?.map((course) => course.title).join(', ') || 'Aucun cours associé'
+    );
+  }
+
+  associateCourses(): void {
+    if (this.selectedStudent) {
+      const selectedCourses = this.allCourses.filter(
+        (course) => course.selected
+      );
+      this.student.associateCoursesToStudent(
+        this.selectedStudent.id!,
+        selectedCourses
+      );
+      this.loadStudents();
+    }
   }
 
   updateFilteredStudents(): void {

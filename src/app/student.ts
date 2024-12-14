@@ -1,3 +1,5 @@
+import { Cours } from './cours';
+
 export interface Student {
   id?: number;
   nom: string;
@@ -8,4 +10,5 @@ export interface Student {
   genre?: string;
   dateNaissance?: Date;
   adresse?: string;
+  courses?: Cours[];
 }

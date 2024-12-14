@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/data.service';
-import {COURSES} from "../../mock-cours";
+import { StudentsService } from 'src/app/services/students/students.service';
+import { COURSES } from '../../mock-cours';
 @Component({
   selector: 'app-dashboard-main',
   templateUrl: './dashboard-main.component.html',
@@ -9,11 +9,11 @@ import {COURSES} from "../../mock-cours";
 export class DashboardMainComponent implements OnInit {
   totalStudents: number = 0;
   totalCourses: number = 0;
-  courses  = COURSES
-  constructor(private dataService: DataService) {}
+  courses = COURSES;
+  constructor(private studentService: StudentsService) {}
 
   ngOnInit() {
-    this.totalStudents = this.dataService.getStudents().length;
+    this.totalStudents = this.studentService.getStudents().length;
     this.totalCourses = this.courses.length;
   }
 }

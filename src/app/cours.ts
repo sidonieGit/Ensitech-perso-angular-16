@@ -3,4 +3,5 @@ export interface Cours {
   title: string;
   description: string;
   duration: string;
+  selected?: boolean;
 }
