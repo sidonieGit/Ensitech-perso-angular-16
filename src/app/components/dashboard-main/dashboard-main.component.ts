@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/data.service';
+import { StudentsService } from 'src/app/services/students/students.service';
 import { Teacher } from '../../interfaces/teachers-interface';
 import { COURSES } from '../../mock-cours';
 import { TEACHERS } from '../../mock-teachers';
@@ -15,7 +15,7 @@ export class DashboardMainComponent implements OnInit {
   totalTeachers: number = 0;
   teachers: Teacher[] = TEACHERS;
   courses = COURSES;
-  constructor(private dataService: DataService) {}
+  constructor(private studentService: StudentsService) {}
 
   ngOnInit() {
     this.totalStudents = this.studentService.getStudents().length;
@@ -29,7 +29,7 @@ export class DashboardMainComponent implements OnInit {
       {
         label: 'Effectif',
         data: [
-          this.dataService.getStudents().length,
+          this.studentService.getStudents().length,
           this.teachers.length,
           this.courses.length,
         ], // Données correspondantes
