@@ -10,12 +10,12 @@ The application has two user roles for access:
 
 1. **Director**
 
-   - **Username:** `director@example.com`
-   - **Password:** `director123`
+   - **Username:** `Patrick`
+   - **Password:** `AE!rkN$ba3y6zoS!`
 
 2. **Head of Studies**
-   - **Username:** `head@example.com`
-   - **Password:** `head123`
+   - **Username:** `Sophie`
+   - **Password:** `Q&is4FmEGedAFmek`
 
 ### How to Log In
 
