@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Cours } from 'src/app/cours';
 import { STUDENTS } from 'src/app/mock-student';
 import { Student } from 'src/app/student';
 
@@ -44,6 +45,15 @@ export class StudentsService {
     );
     if (index !== -1) {
       this.students[index] = { ...updatedStudent };
+      this.saveToLocalStorage();
+    }
+  }
+
+  //
+  associateCoursesToStudent(studentId: number, courses: Cours[]): void {
+    const student = this.students.find((s) => s.id === studentId);
+    if (student) {
+      student.courses = courses; // Associe les objets Cours
       this.saveToLocalStorage();
     }
   }
