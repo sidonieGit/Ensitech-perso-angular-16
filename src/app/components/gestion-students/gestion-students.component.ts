@@ -9,7 +9,6 @@ import { Student } from '../../student';
 })
 export class GestionStudentsComponent implements OnInit {
   filtername: string = '';
-  filtername: string = '';
   students: Student[] = [];
   selectedStudent: Student | null = null;
   filteredStudents: Student[] = [];
