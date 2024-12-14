@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
 export class AuthService {
   private authenticated = false;
   private users = [
-    { username: 'directeur1', password: 'password1', role: 'directeur' },
-    { username: 'responsable1', password: 'password2', role: 'responsable' },
+    { username: 'Patrick', password: 'AE!rkN$ba3y6zoS!', role: 'directeur' },
+    { username: 'Sophie', password: 'Q&is4FmEGedAFmek', role: 'responsable' },
   ];
 
   constructor(private router: Router) {}
