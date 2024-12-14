@@ -15,6 +15,7 @@ export class GestionStudentsComponent implements OnInit {
   selectedStudent: Student | null = null;
   filteredStudents: Student[] = [];
   editingStudent: Student | null = null;
+
   newStudent: Student = {
     nom: '',
     prenom: '',
