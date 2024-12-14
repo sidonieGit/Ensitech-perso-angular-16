@@ -12,6 +12,7 @@ export class GestionTeachersComponent implements OnInit {
   teachers: Teacher[] = [];
   selectedTeacher: Teacher | null = null;
   editingTeacher: Teacher | null = null;
+  filteredTeachers: Teacher[] = [];
   newTeacher: Teacher = {
     nom: '',
     prenom: '',
@@ -27,6 +28,7 @@ export class GestionTeachersComponent implements OnInit {
 
   loadTeachers(): void {
     this.teachers = this.teacher.getTeachers();
+    this.updateFilteredTeachers();
   }
 
   addTeacher(): void {
@@ -34,7 +36,16 @@ export class GestionTeachersComponent implements OnInit {
       this.teacher.addTeacher(this.newTeacher);
       this.loadTeachers();
       this.resetForm();
+      this.updateFilteredTeachers();
     }
+  }
+
+  updateFilteredTeachers(): void {
+    this.filteredTeachers = this.teachers.filter(
+      (teacher) =>
+        teacher.nom.toLowerCase().includes(this.filtername.toLowerCase()) ||
+        teacher.prenom.toLowerCase().includes(this.filtername.toLowerCase())
+    );
   }
 
   resetForm(): void {

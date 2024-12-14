@@ -1,5 +1,6 @@
 export interface Cours {
-  id: string;
-  theme: string;
-  nombreHeures: string;
+  id?: number;
+  title: string;
+  description: string;
+  duration: string;
 }
